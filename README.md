@@ -1,2 +1,0 @@
-# CareConnect
-“A modern hospital management system that allows patients to log in via patient ID, access a dynamic dashboard, book appointments, view doctor availability, and manage medical reports and prescriptions—
