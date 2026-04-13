@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareConnect — Connecting Health, Changing Lives</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+<!-- ====== SPLASH ====== -->
+<div id="splash">
+  <div class="splash-box">
+    <div class="splash-logo">🏥</div>
+    <div class="splash-title">CareConnect</div>
+    <div class="splash-hindi">केयर कनेक्ट</div>
+    <div class="splash-tagline">"Where every heartbeat matters, and every patient is family."</div>
+    <div class="namaste-banner">🙏 Namaste! Swagat hai aapka</div>
+    <button class="btn-primary" style="width:220px;font-size:16px" onclick="showLogin()">Aage Badhein →</button>
+  </div>
+</div>
+
+<!-- ====== LOGIN ====== -->
+<div id="login-page" class="hidden">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon">🏥</div>
+      <div>
+        <div class="login-logo-text">CareConnect</div>
+        <div class="login-logo-sub">केयर कनेक्ट</div>
+      </div>
+    </div>
+    <div class="login-title">Patient Login</div>
+    <div class="login-sub">Apna naam aur Patient ID daalkein</div>
+    <div class="field">
+      <label>Aapka Poora Naam</label>
+      <input type="text" id="input-name" placeholder="e.g. Rahul Kumar" />
+    </div>
+    <div class="field">
+      <label>Patient ID</label>
+      <input type="text" id="input-pid" placeholder="e.g. PT-1234" />
+    </div>
+    <div class="field">
+      <label>Aap kaun hain?</label>
+      <select id="input-role">
+        <option value="patient">Patient</option>
+        <option value="doctor">Doctor (Demo)</option>
+      </select>
+    </div>
+    <button class="btn-primary" onclick="doLogin()">Login Karein 🙏</button>
+    <div class="demo-hint">
+      Demo ke liye: naam kuch bhi, ID: <strong>PT-1234</strong><br>
+      Doctor demo: role "Doctor" select karein, ID: <strong>DR-001</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ====== MAIN APP ====== -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="topbar-icon">🏥</div>
+      <span class="topbar-name">CareConnect</span>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-user">
+      <div class="topbar-avatar" id="topbar-avatar">RK</div>
+      <span class="topbar-user-name" id="topbar-username">Rahul</span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <!-- Patient View -->
+    <div id="patient-view">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-num" id="stat-reports">4</div>
+          <div class="stat-label">Reports</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-appts">1</div>
+          <div class="stat-label">Appointments</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Doctors Available</div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(this,'tab-overview')">Overview</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-history')">History</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-appointments')">Appointments</button>
+      </div>
+
+      <!-- OVERVIEW TAB -->
+      <div id="tab-overview">
+        <div class="grid-2">
+          <!-- Reports Card -->
+          <div class="card">
+            <div class="card-head">
+              <div class="card-head-icon icon-green">📋</div>
+              <span class="card-head-title">Meri Reports</span>
+            </div>
+            <div class="card-body" id="reports-list">
+              <!-- Filled by JS -->
+            </div>
+          </div>
+
+          <!-- Doctors Card -->
+          <div class="card">
+            <div class="card-head">
+              <div class="card-head-icon icon-blue">👨‍⚕️</div>
+              <span class="card-head-title">Doctor Availability</span>
+            </div>
+            <div class="card-body" id="doctors-list">
+              <!-- Filled by JS -->
+            </div>
+          </div>
+
+          <!-- Timetable Card -->
+          <div class="card grid-full">
+            <div class="card-head">
+              <div class="card-head-icon icon-blue">📅</div>
+              <span class="card-head-title" id="timetable-title">7 Din Ka Timetable</span>
+            </div>
+            <div class="card-body">
+              <div style="margin-bottom:10px;display:flex;gap:8px;flex-wrap:wrap">
+                <button onclick="showTimetable('ds')" id="tt-ds" style="padding:5px 14px;border-radius:20px;border:1.5px solid var(--green);background:var(--green);color:white;font-size:12px;font-weight:600;font-family:Sora,sans-serif;cursor:pointer">Dr. D. Sharma</button>
+                <button onclick="showTimetable('rm')" id="tt-rm" style="padding:5px 14px;border-radius:20px;border:1.5px solid var(--border);background:white;color:var(--muted);font-size:12px;font-weight:600;font-family:Sora,sans-serif;cursor:pointer">Dr. R. Mehta</button>
+                <button onclick="showTimetable('ag')" id="tt-ag" style="padding:5px 14px;border-radius:20px;border:1.5px solid var(--border);background:white;color:var(--muted);font-size:12px;font-weight:600;font-family:Sora,sans-serif;cursor:pointer">Dr. A. Gupta</button>
+              </div>
+              <div class="timetable-wrap">
+                <table class="timetable" id="timetable-table">
+                  <!-- Filled by JS -->
+                </table>
+              </div>
+              <div class="timetable-legend">
+                <div class="legend-item"><div class="legend-box" style="background:var(--green-light);border:1px solid var(--green)"></div>Available (click to book)</div>
+                <div class="legend-item"><div class="legend-box" style="background:var(--red-light)"></div>Busy/Booked</div>
+                <div class="legend-item"><div class="legend-box" style="background:var(--bg)"></div>Off</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HISTORY TAB -->
+      <div id="tab-history" class="hidden">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-icon icon-green">🩺</div>
+            <span class="card-head-title">Poori Medical History</span>
+          </div>
+          <div class="card-body" id="history-list">
+            <!-- Filled by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- APPOINTMENTS TAB -->
+      <div id="tab-appointments" class="hidden">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-icon icon-blue">🗓️</div>
+            <span class="card-head-title">Mere Appointments</span>
+          </div>
+          <div class="card-body" id="appt-list">
+            <!-- Filled by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCTOR VIEW -->
+    <div id="doctor-view" class="hidden">
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(this,'tab-doc-appts')">Incoming Appointments</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-doc-rx')">✍️ Prescription</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-doc-schedule')">My Schedule</button>
+        <button class="tab-btn" onclick="switchTab(this,'tab-doc-alert')">Alert Bhejein</button>
+      </div>
+      <div id="tab-doc-appts">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-icon icon-blue">📋</div>
+            <span class="card-head-title">Patient Appointments</span>
+          </div>
+          <div class="card-body" id="doc-appt-list"></div>
+        </div>
+      </div>
+
+      <!-- PRESCRIPTION TAB -->
+      <div id="tab-doc-rx" class="hidden">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-icon icon-green">📝</div>
+            <span class="card-head-title">Prescription &amp; Suggestion Likhein</span>
+          </div>
+          <div class="card-body">
+            <div class="field">
+              <label>Patient ka Report Select Karein</label>
+              <select id="rx-report-select" onchange="loadRxForm()">
+                <option value="">-- Report chunein --</option>
+                <option value="0">Blood Test — CBC Panel (Rahul Kumar)</option>
+                <option value="1">X-Ray Chest AP (Rahul Kumar)</option>
+                <option value="2">ECG — 12 Lead (Rahul Kumar)</option>
+                <option value="3">Thyroid Profile T3/T4 (Rahul Kumar)</option>
+              </select>
+            </div>
+            <div id="rx-write-form" class="hidden">
+              <div class="field">
+                <label>Doctor ki Suggestion / Advice</label>
+                <textarea id="rx-suggestion-input" rows="3" placeholder="e.g. Zyada paani piyen, namak kam karein, roz 30 min walk karein..." style="padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;width:100%;font-size:13px;font-family:Sora,sans-serif;outline:none;resize:vertical;line-height:1.6"></textarea>
+              </div>
+              <div class="field">
+                <label>Follow-up Date</label>
+                <input type="text" id="rx-followup-input" placeholder="e.g. 2 hafte baad, 15 April 2025" style="padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;width:100%;font-size:13px;font-family:Sora,sans-serif;outline:none">
+              </div>
+              <div class="field">
+                <label>Dawaaiyaan (Medicines)</label>
+                <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:6px;margin-bottom:6px">
+                  <span style="font-size:11px;font-weight:600;color:var(--muted)">Medicine ka Naam</span>
+                  <span style="font-size:11px;font-weight:600;color:var(--muted)">Dose</span>
+                  <span style="font-size:11px;font-weight:600;color:var(--muted)">Frequency</span>
+                  <span style="font-size:11px;font-weight:600;color:var(--muted)">Duration</span>
+                  <span></span>
+                </div>
+                <div id="med-rows"></div>
+                <button class="add-med-btn" onclick="addMedRow()">+ Aur Medicine Add Karein</button>
+              </div>
+              <button class="btn-primary" style="font-size:14px;padding:12px" onclick="saveRx()">💊 Prescription Save Karein</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab-doc-schedule" class="hidden">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-icon icon-green">🕐</div>
+            <span class="card-head-title">Apna Schedule Update Karein</span>
+          </div>
+          <div class="card-body">
+            <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Jis slot pe click karein use toggle karein (Available ↔ Busy)</p>
+            <div class="timetable-wrap">
+              <table class="timetable" id="doctor-timetable"></table>
+            </div>
+            <div style="margin-top:1rem;text-align:right">
+              <button class="btn-primary" style="width:auto;padding:10px 24px;font-size:13px" onclick="saveSchedule()">Schedule Save Karein ✓</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="tab-doc-alert" class="hidden">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-head-icon icon-blue">⚠️</div>
+            <span class="card-head-title">Patient Alert Bhejein</span>
+          </div>
+          <div class="card-body">
+            <div class="field"><label>Alert ka Type</label>
+              <select id="alert-type">
+                <option>Appointment Cancel</option>
+                <option>Time Change</option>
+                <option>Emergency Unavailability</option>
+                <option>Special Announcement</option>
+              </select>
+            </div>
+            <div class="field"><label>Message</label>
+              <input type="text" id="alert-msg" placeholder="e.g. Aaj 2-5 PM appointment cancel hai, emergency surgery ke karan">
+            </div>
+            <button class="btn-primary" style="font-size:14px;padding:12px" onclick="sendAlert()">Alert Bhejein 📢</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ====== MODALS ====== -->
+<div class="modal-overlay hidden" id="book-modal">
+  <div class="modal">
+    <div class="modal-title">Appointment Book Karein</div>
+    <div class="modal-sub" id="book-modal-sub">Select karein aur confirm karein</div>
+    <div class="field"><label>Doctor</label><input class="modal-input" id="bm-doc" readonly style="padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;width:100%;font-size:13px;font-family:Sora,sans-serif;background:#f8fafc;color:var(--text)"></div>
+    <div class="field"><label>Date / Time</label><input class="modal-input" id="bm-time" readonly style="padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;width:100%;font-size:13px;font-family:Sora,sans-serif;background:#f8fafc;color:var(--text)"></div>
+    <div class="field"><label>Aapka Naam</label><input id="bm-name" placeholder="Poora naam" style="padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;width:100%;font-size:13px;font-family:Sora,sans-serif;outline:none"></div>
+    <div class="field"><label>Phone</label><input id="bm-phone" placeholder="10 digit mobile number" maxlength="10" style="padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;width:100%;font-size:13px;font-family:Sora,sans-serif;outline:none"></div>
+    <div class="field"><label>Bimari / Shikayat</label><input id="bm-reason" placeholder="e.g. Bukhaar, Sar dard..." style="padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;width:100%;font-size:13px;font-family:Sora,sans-serif;outline:none"></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal('book-modal')">Wapas</button>
+      <button class="btn-confirm" onclick="confirmBooking()">Confirm Karein ✓</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay hidden" id="report-modal">
+  <div class="modal">
+    <div class="modal-title" id="rm-title">Report Details</div>
+    <div class="modal-sub" id="rm-sub"></div>
+    <div id="rm-body"></div>
+    <div style="margin-top:1.25rem">
+      <button class="btn-confirm" style="width:100%;padding:11px" onclick="closeModal('report-modal')">Theek Hai</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
